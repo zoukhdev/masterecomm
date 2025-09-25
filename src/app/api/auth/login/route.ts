@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { signIn, getUser, getCurrentUser, createUser } from '../../../../lib/supabase';
+import { signIn, getUser, getCurrentUser } from '../../../../lib/supabase';
+import { supabase } from '../../../../lib/supabase';
 
 // POST /api/auth/login - User login
 export async function POST(request: NextRequest) {
@@ -60,12 +61,12 @@ export async function POST(request: NextRequest) {
     // Use Supabase authentication for real users
     console.log('Attempting Supabase auth for:', email);
     const { data, error } = await signIn(email, password);
-    
+
     if (error) {
       console.error('Supabase auth error:', error);
       console.error('Error code:', error.code);
       console.error('Error message:', error.message);
-      
+
       // Provide more specific error messages
       if (error.message?.includes('Invalid login credentials')) {
         return NextResponse.json(
@@ -84,98 +85,70 @@ export async function POST(request: NextRequest) {
         );
       }
     }
-    
+
     console.log('Supabase auth successful, data:', data);
-    
+
     // Get user details from Supabase Auth
     const { user: authUser } = await getCurrentUser();
-    
+
     if (!authUser) {
       return NextResponse.json(
         { error: 'User not found' },
         { status: 401 }
       );
     }
-    
-    // Check if user exists in our users table, if not create a basic user record
-    console.log('Checking for user in users table:', authUser.id);
-    let userDetails = await getUser(authUser.id);
-    console.log('User details from users table:', userDetails);
-    
-    if (!userDetails) {
-      // User doesn't exist in our users table, create a basic record
-      console.log('Creating user record for Supabase Auth user:', authUser.id);
-      
-      // Extract user data from Supabase Auth metadata
-      const firstName = authUser.user_metadata?.first_name || 'User';
-      const lastName = authUser.user_metadata?.last_name || '';
-      const email = authUser.email || '';
-      
-      // Create user record in our users table
-      console.log('Creating user with data:', {
-        email: email,
-        first_name: firstName,
-        last_name: lastName,
-        role: 'staff',
-        is_active: true,
-        password_hash: ''
-      });
-      
-      const newUser = await createUser({
-        email: email,
-        first_name: firstName,
-        last_name: lastName,
-        role: 'staff', // Default role for regular users
-        is_active: true, // Supabase Auth users are active by default
-        password_hash: '' // No password hash needed for Supabase Auth users
-      });
-      
-      console.log('User creation result:', newUser);
-      
-      if (newUser) {
-        userDetails = newUser;
-        console.log('User record created successfully');
-      } else {
-        // If we can't create a user record, still allow login with basic info
-        userDetails = {
-          id: authUser.id,
-          email: email,
-          first_name: firstName,
-          last_name: lastName,
-          role: 'staff',
-          is_active: true,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        };
-        console.log('Using basic user info from Supabase Auth');
+
+    // Determine if this is a customer or admin/staff login
+    // If the email exists in the users table, treat as admin/staff
+  const userDetails = await getUser(authUser.id);
+    if (userDetails) {
+      // Admin/staff login: check is_active
+      if (!userDetails.is_active) {
+        console.log('User account is deactivated');
+        return NextResponse.json(
+          { error: 'Account is deactivated' },
+          { status: 401 }
+        );
       }
+      // Create a session token
+      const token = Buffer.from(JSON.stringify({
+        userId: userDetails.id,
+        email: userDetails.email,
+        role: userDetails.role,
+        exp: Date.now() + 24 * 60 * 60 * 1000 // 24 hours
+      })).toString('base64');
+      return NextResponse.json({
+        user: userDetails,
+        token,
+        message: 'Login successful'
+      });
+    } else {
+      // Customer login: check customers table by email
+      const { data: customerData, error: customerError } = await supabase
+        .from('customers')
+        .select('*')
+        .eq('email', authUser.email)
+        .single();
+
+      if (customerError || !customerData) {
+        return NextResponse.json(
+          { error: 'Customer account not found' },
+          { status: 401 }
+        );
+      }
+      // Create a session token
+      const token = Buffer.from(JSON.stringify({
+        userId: customerData.id,
+        email: customerData.email,
+        role: 'customer',
+        exp: Date.now() + 24 * 60 * 60 * 1000 // 24 hours
+      })).toString('base64');
+      return NextResponse.json({
+        user: customerData,
+        token,
+        message: 'Login successful'
+      });
     }
-    
-    // Check if user is active
-    console.log('Final user details:', userDetails);
-    console.log('User active status:', userDetails.is_active);
-    
-    if (!userDetails.is_active) {
-      console.log('User account is deactivated');
-      return NextResponse.json(
-        { error: 'Account is deactivated' },
-        { status: 401 }
-      );
-    }
-    
-    // Create a session token (in production, you might want to use proper JWT)
-    const token = Buffer.from(JSON.stringify({
-      userId: userDetails.id,
-      email: userDetails.email,
-      role: userDetails.role,
-      exp: Date.now() + 24 * 60 * 60 * 1000 // 24 hours
-    })).toString('base64');
-    
-    return NextResponse.json({
-      user: userDetails,
-      token,
-      message: 'Login successful'
-    });
   } catch (error) {
     console.error('Error during login:', error);
     return NextResponse.json(

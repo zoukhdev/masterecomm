@@ -1,8 +1,8 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { supabase } from '../lib/supabase';
-import type { User, Session } from '@supabase/supabase-js';
+import type { User } from '@supabase/supabase-js';
 
 interface UserProfile {
   id: string;
@@ -17,9 +17,13 @@ interface UserProfile {
 
 interface AuthContextType {
   user: UserProfile | null;
+  session: Session | null;
   loading: boolean;
   login: (user: UserProfile) => void;
   logout: () => void;
+  signInWithGoogle: () => Promise<any>;
+  resetPassword: (email: string) => Promise<any>;
+  updateProfile: (updates: Partial<UserProfile>) => Promise<any>;
   isAuthenticated: boolean;
 }
 
@@ -27,6 +31,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserProfile | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -39,10 +44,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         console.log('🔐 Auth state changed:', event, session?.user?.email);
         
         if (event === 'SIGNED_IN' && session?.user) {
+          setSession(session);
           await handleSignIn(session.user);
         } else if (event === 'SIGNED_OUT') {
+          setSession(null);
           handleSignOut();
         } else if (event === 'TOKEN_REFRESHED' && session?.user) {
+          setSession(session);
           await handleSignIn(session.user);
         }
         
@@ -51,9 +59,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     );
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [getSession]);
 
-  const getSession = async () => {
+  const getSession = useCallback(async () => {
     try {
       const { data: { session }, error } = await supabase.auth.getSession();
       
@@ -64,6 +72,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       if (session?.user) {
+        setSession(session);
         await handleSignIn(session.user);
       } else {
         setLoading(false);
@@ -72,7 +81,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       console.error('Error getting session:', error);
       setLoading(false);
     }
-  };
+  }, []);
 
   const handleSignIn = async (authUser: User) => {
     try {
@@ -166,11 +175,91 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const signInWithGoogle = async () => {
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/account`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          }
+        }
+      });
+      return { data, error };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const resetPassword = async (email: string) => {
+    try {
+      const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      return { data, error };
+    } catch (error) {
+      return { data: null, error };
+    }
+  };
+
+  const updateProfile = async (updates: Partial<UserProfile>) => {
+    try {
+      // Update Supabase Auth profile
+      const { data: authData, error: authError } = await supabase.auth.updateUser({
+        data: {
+          first_name: updates.first_name,
+          last_name: updates.last_name,
+        }
+      });
+
+      if (authError) {
+        console.error('Error updating auth profile:', authError);
+        return { data: null, error: authError };
+      }
+
+      // Update users table
+      const { data: userData, error: userError } = await supabase
+        .from('users')
+        .update({
+          first_name: updates.first_name,
+          last_name: updates.last_name,
+        })
+        .eq('id', user?.id)
+        .select()
+        .single();
+
+      if (userError) {
+        console.error('Error updating user profile:', userError);
+        return { data: null, error: userError };
+      }
+
+      // Update local user state
+      if (user) {
+        setUser({
+          ...user,
+          ...updates
+        });
+      }
+
+      return { data: { authData, userData }, error: null };
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      return { data: null, error };
+    }
+  };
+
   const value = {
     user,
+    session,
     loading,
     login,
     logout,
+    signInWithGoogle,
+    resetPassword,
+    updateProfile,
     isAuthenticated: !!user,
   };
 

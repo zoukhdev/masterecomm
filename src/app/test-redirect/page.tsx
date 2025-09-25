@@ -15,7 +15,7 @@ export default function TestRedirectPage() {
             🔄 Redirect Test Page
           </h2>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            This page tests the "return to previous page" functionality
+            This page tests the &quot;return to previous page&quot; functionality
           </p>
         </div>
 

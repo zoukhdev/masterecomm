@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { supabase } from '../lib/supabase';
-import type { User } from '@supabase/supabase-js';
+import type { User, Session } from '@supabase/supabase-js';
 
 interface UserProfile {
   id: string;
@@ -21,9 +21,9 @@ interface AuthContextType {
   loading: boolean;
   login: (user: UserProfile) => void;
   logout: () => void;
-  signInWithGoogle: () => Promise<any>;
-  resetPassword: (email: string) => Promise<any>;
-  updateProfile: (updates: Partial<UserProfile>) => Promise<any>;
+  signInWithGoogle: () => Promise<{ data: { provider: string; url: string | null } | null; error: Error | null }>;
+  resetPassword: (email: string) => Promise<{ data: object | null; error: Error | unknown | null }>;
+  updateProfile: (updates: Partial<UserProfile>) => Promise<{ data: object | null; error: Error | unknown | null }>;
   isAuthenticated: boolean;
 }
 
@@ -33,6 +33,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const getSession = useCallback(async () => {
+    try {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      
+      if (error) {
+        console.error('Error getting session:', error);
+        setLoading(false);
+        return;
+      }
+
+      if (session?.user) {
+        setSession(session);
+        await handleSignIn(session.user);
+      } else {
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error('Error getting session:', error);
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     // Get initial session
@@ -60,28 +82,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     return () => subscription.unsubscribe();
   }, [getSession]);
-
-  const getSession = useCallback(async () => {
-    try {
-      const { data: { session }, error } = await supabase.auth.getSession();
-      
-      if (error) {
-        console.error('Error getting session:', error);
-        setLoading(false);
-        return;
-      }
-
-      if (session?.user) {
-        setSession(session);
-        await handleSignIn(session.user);
-      } else {
-        setLoading(false);
-      }
-    } catch (error) {
-      console.error('Error getting session:', error);
-      setLoading(false);
-    }
-  }, []);
 
   const handleSignIn = async (authUser: User) => {
     try {

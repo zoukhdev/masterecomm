@@ -2,7 +2,6 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import { Eye, EyeOff, Mail, Lock, User, Phone, ArrowLeft, Loader2, CheckCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { supabase } from '../../lib/supabase';
@@ -22,24 +21,26 @@ function SignupForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [signupSuccess, setSignupSuccess] = useState(false);
-  const searchParams = useSearchParams();
   const [returnTo, setReturnTo] = useState('/account');
   const { signInWithGoogle } = useAuth();
 
   // Handle returnTo parameter from URL
   useEffect(() => {
-    const returnToParam = searchParams.get('returnTo');
-    if (returnToParam) {
-      try {
-        const url = new URL(returnToParam, window.location.origin);
-        if (url.origin === window.location.origin) {
-          setReturnTo(returnToParam);
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const returnToParam = urlParams.get('returnTo');
+      if (returnToParam) {
+        try {
+          const url = new URL(returnToParam, window.location.origin);
+          if (url.origin === window.location.origin) {
+            setReturnTo(returnToParam);
+          }
+        } catch (error) {
+          console.log('Invalid returnTo URL, using default');
         }
-      } catch (error) {
-        console.log('Invalid returnTo URL, using default');
       }
     }
-  }, [searchParams]);
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

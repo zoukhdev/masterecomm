@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Lock, Eye, EyeOff, ArrowLeft, Loader2, CheckCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { supabase } from '../../lib/supabase';
@@ -17,7 +17,6 @@ function ResetPasswordForm() {
   const [isValidSession, setIsValidSession] = useState(false);
   
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     // Check if we have a valid session for password reset
@@ -27,10 +26,12 @@ function ResetPasswordForm() {
         setIsValidSession(true);
       } else {
         // Check URL parameters for access token
-        const accessToken = searchParams.get('access_token');
-        const refreshToken = searchParams.get('refresh_token');
+        if (typeof window !== 'undefined') {
+          const urlParams = new URLSearchParams(window.location.search);
+          const accessToken = urlParams.get('access_token');
+          const refreshToken = urlParams.get('refresh_token');
         
-        if (accessToken && refreshToken) {
+          if (accessToken && refreshToken) {
           const { data, error } = await supabase.auth.setSession({
             access_token: accessToken,
             refresh_token: refreshToken,
@@ -47,11 +48,12 @@ function ResetPasswordForm() {
           toast.error('Invalid reset link. Please request a new password reset.');
           router.push('/forgot-password');
         }
+        }
       }
     };
 
     checkSession();
-  }, [router, searchParams]);
+  }, [router]);
 
   const validatePassword = (password: string) => {
     if (password.length < 6) {

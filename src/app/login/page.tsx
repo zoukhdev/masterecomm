@@ -2,7 +2,6 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import { Eye, EyeOff, Mail, Lock, ArrowLeft, Loader2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../contexts/AuthContext';
@@ -16,23 +15,25 @@ function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { login, signInWithGoogle } = useAuth();
-  const searchParams = useSearchParams();
   const [returnTo, setReturnTo] = useState('/account');
 
   // Handle returnTo parameter from URL
   useEffect(() => {
-    const returnToParam = searchParams.get('returnTo');
-    if (returnToParam) {
-      try {
-        const url = new URL(returnToParam, window.location.origin);
-        if (url.origin === window.location.origin) {
-          setReturnTo(returnToParam);
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const returnToParam = urlParams.get('returnTo');
+      if (returnToParam) {
+        try {
+          const url = new URL(returnToParam, window.location.origin);
+          if (url.origin === window.location.origin) {
+            setReturnTo(returnToParam);
+          }
+        } catch (error) {
+          console.log('Invalid returnTo URL, using default');
         }
-      } catch (error) {
-        console.log('Invalid returnTo URL, using default');
       }
     }
-  }, [searchParams]);
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

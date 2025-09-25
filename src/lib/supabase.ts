@@ -1,33 +1,38 @@
 import { createClient } from '@supabase/supabase-js';
 
 // Supabase configuration
-let supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://bbtypnulrkkdvvfupxws.supabase.co';
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJidHlwbnVscmtrZHZ2ZnVweHdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg3MDE2NDksImV4cCI6MjA3NDI3NzY0OX0.zAXeNagYcELcs9jlEJxzAfhgAjknhA2ZWv-pkn7hrrM';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-// Ensure URL has proper protocol
-if (supabaseUrl && !supabaseUrl.startsWith('http://') && !supabaseUrl.startsWith('https://')) {
-  supabaseUrl = `https://${supabaseUrl}`;
+// Validate environment variables
+if (!supabaseUrl || !supabaseKey) {
+  console.error('❌ Missing Supabase environment variables!');
+  console.error('Please create a .env.local file with:');
+  console.error('NEXT_PUBLIC_SUPABASE_URL=your_supabase_url');
+  console.error('NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_key');
+  throw new Error('Supabase environment variables are required');
 }
 
-// Create Supabase client with error handling
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let supabase: any;
-
-try {
-  // Debug logging
-  console.log('Initializing Supabase with URL:', supabaseUrl);
-  console.log('Supabase key length:', supabaseKey ? supabaseKey.length : 'undefined');
-  
-  supabase = createClient(supabaseUrl, supabaseKey);
-  console.log('Supabase client initialized successfully');
-} catch (error) {
-  console.error('Failed to initialize Supabase client:', error);
-  console.error('URL:', supabaseUrl);
-  console.error('Key available:', !!supabaseKey);
-  // Create a mock client for build time
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  supabase = {} as any;
+// Validate URL format
+if (!supabaseUrl.startsWith('https://') || !supabaseUrl.includes('.supabase.co')) {
+  console.error('❌ Invalid Supabase URL format!');
+  console.error('URL should be: https://your-project-id.supabase.co');
+  throw new Error('Invalid Supabase URL format');
 }
+
+// Create Supabase client
+const supabase = createClient(supabaseUrl, supabaseKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true
+  }
+});
+
+// Log successful initialization
+console.log('✅ Supabase client initialized successfully');
+console.log('   URL:', supabaseUrl);
+console.log('   Key length:', supabaseKey.length);
 
 export { supabase };
 

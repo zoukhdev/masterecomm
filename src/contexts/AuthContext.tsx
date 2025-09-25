@@ -1,9 +1,10 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { getCurrentUser, signOut } from '../lib/supabase';
+import { supabase } from '../lib/supabase';
+import type { User, Session } from '@supabase/supabase-js';
 
-interface User {
+interface UserProfile {
   id: string;
   email: string;
   first_name: string;
@@ -15,9 +16,9 @@ interface User {
 }
 
 interface AuthContextType {
-  user: User | null;
+  user: UserProfile | null;
   loading: boolean;
-  login: (user: User) => void;
+  login: (user: UserProfile) => void;
   logout: () => void;
   isAuthenticated: boolean;
 }
@@ -25,93 +26,143 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    checkUser();
+    // Get initial session
+    getSession();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        console.log('🔐 Auth state changed:', event, session?.user?.email);
+        
+        if (event === 'SIGNED_IN' && session?.user) {
+          await handleSignIn(session.user);
+        } else if (event === 'SIGNED_OUT') {
+          handleSignOut();
+        } else if (event === 'TOKEN_REFRESHED' && session?.user) {
+          await handleSignIn(session.user);
+        }
+        
+        setLoading(false);
+      }
+    );
+
+    return () => subscription.unsubscribe();
   }, []);
 
-  const checkUser = async () => {
+  const getSession = async () => {
     try {
-      console.log('🔍 AuthContext: Checking user session...');
+      const { data: { session }, error } = await supabase.auth.getSession();
       
-      // Check if there's a stored user session
-      const storedUser = localStorage.getItem('user');
-      const storedToken = localStorage.getItem('token');
-      
-      console.log('🔍 AuthContext: storedUser:', storedUser ? 'exists' : 'null');
-      console.log('🔍 AuthContext: storedToken:', storedToken ? 'exists' : 'null');
-      
-      if (storedUser) {
-        console.log('🔍 AuthContext: Found stored user, parsing...');
-        const parsedUser = JSON.parse(storedUser);
-        console.log('🔍 AuthContext: Parsed user:', parsedUser);
-        setUser(parsedUser);
-      } else if (storedToken) {
-        console.log('🔍 AuthContext: No stored user, checking token...');
-        // If we have a token but no user, try to decode it for demo users
-        try {
-          const tokenData = JSON.parse(Buffer.from(storedToken, 'base64').toString());
-          console.log('🔍 AuthContext: Token data:', tokenData);
-          
-          // Check if token is expired
-          if (tokenData.exp && Date.now() > tokenData.exp) {
-            console.log('🔍 AuthContext: Token expired, clearing session');
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
-            return;
-          }
-          
-          if (tokenData.userId && tokenData.email && tokenData.role) {
-            // Create user object from token data
-            const userFromToken = {
-              id: tokenData.userId,
-              email: tokenData.email,
-              first_name: tokenData.firstName || 'Demo',
-              last_name: tokenData.lastName || 'User',
-              role: tokenData.role,
-              is_active: true,
-              created_at: new Date().toISOString()
-            };
-            console.log('🔍 AuthContext: Created user from token:', userFromToken);
-            setUser(userFromToken);
-            localStorage.setItem('user', JSON.stringify(userFromToken));
-          }
-        } catch (tokenError) {
-          console.error('🔍 AuthContext: Error parsing token:', tokenError);
-          // Clear invalid token
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
-        }
+      if (error) {
+        console.error('Error getting session:', error);
+        setLoading(false);
+        return;
+      }
+
+      if (session?.user) {
+        await handleSignIn(session.user);
       } else {
-        console.log('🔍 AuthContext: No stored user or token found');
+        setLoading(false);
       }
     } catch (error) {
-      console.error('🔍 AuthContext: Error checking user:', error);
-    } finally {
+      console.error('Error getting session:', error);
       setLoading(false);
-      console.log('🔍 AuthContext: Loading set to false');
     }
   };
 
-  const login = (userData: User) => {
-    console.log('🔍 AuthContext: Login called with user:', userData);
+  const handleSignIn = async (authUser: User) => {
+    try {
+      console.log('🔐 Handling sign in for user:', authUser.email);
+      
+      // Create user profile from Supabase auth user
+      const userProfile: UserProfile = {
+        id: authUser.id,
+        email: authUser.email || '',
+        first_name: authUser.user_metadata?.first_name || 'User',
+        last_name: authUser.user_metadata?.last_name || '',
+        role: 'customer',
+        is_active: true,
+        created_at: authUser.created_at,
+        updated_at: new Date().toISOString()
+      };
+
+      // Try to get or create user in our users table
+      try {
+        const { data: existingUser, error: fetchError } = await supabase
+          .from('users')
+          .select('*')
+          .eq('id', authUser.id)
+          .single();
+
+        if (fetchError && fetchError.code === 'PGRST116') {
+          // User doesn't exist, create one
+          console.log('👤 Creating user profile in database...');
+          const { error: createError } = await supabase
+            .from('users')
+            .insert([{
+              id: authUser.id,
+              email: authUser.email,
+              first_name: userProfile.first_name,
+              last_name: userProfile.last_name,
+              role: 'customer',
+              is_active: true,
+              password_hash: '', // No password hash needed for Supabase auth users
+            }]);
+
+          if (createError) {
+            console.error('Error creating user profile:', createError);
+          } else {
+            console.log('✅ User profile created successfully');
+          }
+        } else if (existingUser) {
+          // Update user profile with latest metadata
+          userProfile.first_name = existingUser.first_name || userProfile.first_name;
+          userProfile.last_name = existingUser.last_name || userProfile.last_name;
+          userProfile.role = existingUser.role || userProfile.role;
+          userProfile.is_active = existingUser.is_active;
+          userProfile.created_at = existingUser.created_at;
+        }
+      } catch (dbError) {
+        console.error('Database error during user handling:', dbError);
+        // Continue with auth user data even if DB operation fails
+      }
+
+      setUser(userProfile);
+      console.log('✅ User set in context:', userProfile.email);
+    } catch (error) {
+      console.error('Error handling sign in:', error);
+    }
+  };
+
+  const handleSignOut = () => {
+    console.log('🔐 Handling sign out');
+    setUser(null);
+  };
+
+  const login = (userData: UserProfile) => {
+    console.log('🔐 Manual login called:', userData.email);
     setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
-    console.log('🔍 AuthContext: User stored in localStorage');
   };
 
   const logout = async () => {
-    console.log('🔍 AuthContext: Logout called');
     try {
-      await signOut();
+      console.log('🔐 Logging out user...');
+      const { error } = await supabase.auth.signOut();
+      
+      if (error) {
+        console.error('Error signing out:', error);
+      }
+      
       setUser(null);
-      localStorage.removeItem('user');
-      localStorage.removeItem('token');
-      console.log('🔍 AuthContext: User session cleared');
+      console.log('✅ User logged out successfully');
     } catch (error) {
-      console.error('🔍 AuthContext: Error during logout:', error);
+      console.error('Error during logout:', error);
+      // Still clear user state even if logout fails
+      setUser(null);
     }
   };
 

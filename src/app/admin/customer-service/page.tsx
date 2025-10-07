@@ -423,8 +423,46 @@ export default function AdminCustomerService() {
 
           {/* Tickets Table */}
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[240px] sm:min-w-[320px] lg:min-w-[500px]">
+            {/* Mobile Card Layout */}
+            <div className="block sm:hidden">
+              {tickets.map((ticket) => (
+                <div key={ticket.id} className="p-3 border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center mb-1">
+                        <MessageSquare className="w-3 h-3 text-gray-400 dark:text-gray-500 mr-2 flex-shrink-0" />
+                        <span className="text-sm font-medium text-gray-900 dark:text-white truncate">{ticket.subject}</span>
+                      </div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{ticket.customerName}</p>
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-gray-600 dark:text-gray-300">#{ticket.id}</span>
+                        <span className={`px-2 py-0.5 rounded-full text-xs ${
+                          ticket.status === 'open'
+                            ? 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300'
+                            : ticket.status === 'in-progress'
+                            ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-300'
+                            : 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300'
+                        }`}>
+                          {ticket.status}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-1 ml-2">
+                      <button className="p-1 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">
+                        <Eye className="w-3 h-3" />
+                      </button>
+                      <button className="p-1 text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300">
+                        <MessageSquare className="w-3 h-3" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Table Layout */}
+            <div className="hidden sm:block overflow-x-auto">
+              <table className="w-full min-w-[500px]">
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
                     <th className="px-0.5 sm:px-6 py-0.5 sm:py-3 text-left text-[7px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -546,8 +584,46 @@ export default function AdminCustomerService() {
       {activeTab === 'chats' && (
         <div className="space-y-6">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[240px] sm:min-w-[320px] lg:min-w-[500px]">
+            {/* Mobile Card Layout */}
+            <div className="block sm:hidden">
+              {tickets.map((ticket) => (
+                <div key={ticket.id} className="p-3 border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center mb-1">
+                        <MessageSquare className="w-3 h-3 text-gray-400 dark:text-gray-500 mr-2 flex-shrink-0" />
+                        <span className="text-sm font-medium text-gray-900 dark:text-white truncate">{ticket.subject}</span>
+                      </div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{ticket.customerName}</p>
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-gray-600 dark:text-gray-300">#{ticket.id}</span>
+                        <span className={`px-2 py-0.5 rounded-full text-xs ${
+                          ticket.status === 'open'
+                            ? 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300'
+                            : ticket.status === 'in-progress'
+                            ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-300'
+                            : 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300'
+                        }`}>
+                          {ticket.status}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-1 ml-2">
+                      <button className="p-1 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">
+                        <Eye className="w-3 h-3" />
+                      </button>
+                      <button className="p-1 text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300">
+                        <MessageSquare className="w-3 h-3" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Table Layout */}
+            <div className="hidden sm:block overflow-x-auto">
+              <table className="w-full min-w-[500px]">
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
                     <th className="px-0.5 sm:px-6 py-0.5 sm:py-3 text-left text-[7px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">

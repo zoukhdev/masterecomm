@@ -20,6 +20,8 @@ import {
   MessageSquare,
   TrendingUp
 } from 'lucide-react';
+import DarkModeToggle from '../../../components/DarkModeToggle';
+import LanguageDropdown from '../../../components/LanguageDropdown';
 
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
@@ -90,6 +92,23 @@ export default function AdminSidebar() {
               );
             })}
           </nav>
+
+          {/* Mobile Settings Section */}
+          <div className="px-4 py-4 border-t border-gray-200 dark:border-gray-700 lg:hidden">
+            <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
+              Settings
+            </h3>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-700 dark:text-gray-300">Language</span>
+                <LanguageDropdown />
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-700 dark:text-gray-300">Dark Mode</span>
+                <DarkModeToggle />
+              </div>
+            </div>
+          </div>
 
           {/* Logout */}
           <div className="p-4 border-t border-gray-200 dark:border-gray-700">

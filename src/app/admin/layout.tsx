@@ -36,9 +36,9 @@ export default function AdminLayout({
           <LanguageProvider>
             <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex transition-colors duration-200">
               <AdminSidebar />
-              <div className="flex-1 flex flex-col">
+              <div className="flex-1 flex flex-col lg:ml-0">
                 <AdminHeader />
-                <main className="flex-1 overflow-auto">
+                <main className="flex-1 overflow-auto p-4 lg:p-6">
                   {children}
                 </main>
               </div>

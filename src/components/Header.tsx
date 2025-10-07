@@ -39,7 +39,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent -ml-8">
+          <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             E-Shop
           </Link>
 
@@ -77,41 +77,18 @@ export default function Header() {
 
           {/* Right side */}
           <div className="flex items-center space-x-4">
-            {/* Mobile Search Button */}
-            <button 
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="md:hidden text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              <Search size={20} />
-            </button>
+            {/* Desktop: Language Dropdown and Dark Mode Toggle */}
+            <div className="hidden md:flex items-center space-x-4">
+              <LanguageDropdown />
+              <DarkModeToggle />
+            </div>
 
-            {/* Language Dropdown */}
-            <LanguageDropdown />
-
-            {/* Dark Mode Toggle */}
-            <DarkModeToggle />
-
-            {/* Wishlist */}
-            <Link href="/wishlist" className="text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors relative">
-              <Heart size={20} />
-            </Link>
-
-            {/* Cart */}
-            <Link href="/cart" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors relative">
-              <ShoppingCart size={20} />
-              {cartItemCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {cartItemCount}
-                </span>
-              )}
-            </Link>
-
-            {/* User Account - Only show when authenticated */}
-            {isAuthenticated ? (
-              <div className="relative group">
+            {/* Desktop: User Account - Only show when authenticated */}
+            {isAuthenticated && (
+              <div className="hidden md:block relative group">
                 <button className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center space-x-2">
                   <User size={20} />
-                  <span className="hidden sm:block text-sm font-medium">
+                  <span className="text-sm font-medium">
                     {user?.first_name || 'Account'}
                   </span>
                 </button>
@@ -144,8 +121,11 @@ export default function Header() {
                   </div>
                 </div>
               </div>
-            ) : (
-              <div className="relative group">
+            )}
+
+            {/* Desktop: Non-authenticated user dropdown */}
+            {!isAuthenticated && (
+              <div className="hidden md:block relative group">
                 <button className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                   <User size={20} />
                 </button>
@@ -169,13 +149,39 @@ export default function Header() {
               </div>
             )}
 
-            {/* Mobile Menu Button */}
-            <button 
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
+            {/* Mobile: Search, Wishlist, Cart, and Menu Button */}
+            <div className="md:hidden flex items-center space-x-3">
+              {/* Mobile Search Button */}
+              <button 
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center justify-center w-8 h-8"
+              >
+                <Search size={20} />
+              </button>
+
+              {/* Wishlist */}
+              <Link href="/wishlist" className="text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors relative flex items-center justify-center w-8 h-8">
+                <Heart size={20} />
+              </Link>
+
+              {/* Cart */}
+              <Link href="/cart" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors relative flex items-center justify-center w-8 h-8">
+                <ShoppingCart size={20} />
+                {cartItemCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center text-[10px] font-medium">
+                    {cartItemCount > 99 ? '99+' : cartItemCount}
+                  </span>
+                )}
+              </Link>
+
+              {/* Mobile Menu Button */}
+              <button 
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center justify-center w-8 h-8"
+              >
+                {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -229,6 +235,23 @@ export default function Header() {
               >
                 {t('nav.about')}
               </Link>
+              
+              {/* Mobile Settings Section */}
+              <div className="border-t border-gray-200 dark:border-gray-600 my-4"></div>
+              <div className="px-4 py-2">
+                <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
+                  Settings
+                </h3>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-700 dark:text-gray-300">Language</span>
+                  <LanguageDropdown />
+                </div>
+                <div className="flex items-center justify-between mt-3">
+                  <span className="text-sm text-gray-700 dark:text-gray-300">Dark Mode</span>
+                  <DarkModeToggle />
+                </div>
+              </div>
+              
               <div className="border-t border-gray-200 dark:border-gray-600 my-4"></div>
               {isAuthenticated ? (
                 <>

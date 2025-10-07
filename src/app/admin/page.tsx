@@ -99,15 +99,15 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       {/* Welcome Message */}
-      <div className="bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-600 dark:to-purple-700 rounded-xl p-6 mb-8 text-white shadow-lg">
-        <h2 className="text-2xl font-bold mb-2">Admin Dashboard</h2>
-        <p className="text-blue-100 dark:text-blue-200">Welcome to your e-commerce management center</p>
+      <div className="bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-600 dark:to-purple-700 rounded-xl p-4 sm:p-6 mb-6 sm:mb-8 text-white shadow-lg">
+        <h2 className="text-xl sm:text-2xl font-bold mb-2">Admin Dashboard</h2>
+        <p className="text-blue-100 dark:text-blue-200 text-sm sm:text-base">Welcome to your e-commerce management center</p>
       </div>
       
       {/* Metrics Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 sm:gap-6 mb-6 sm:mb-8">
         {metrics.map((metric, index) => {
           const getNavigationPath = (title: string) => {
             switch (title) {
@@ -125,18 +125,18 @@ export default function AdminDashboard() {
             <button
               key={index}
               onClick={() => router.push(getNavigationPath(metric.title))}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-all duration-200 hover:shadow-md hover:scale-105 cursor-pointer text-left w-full"
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 sm:p-6 transition-all duration-200 hover:shadow-md hover:scale-105 cursor-pointer text-left w-full"
             >
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{metric.title}</p>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{metric.value}</p>
-                  <p className={`text-sm ${metric.changeType === 'positive' ? 'text-green-600' : 'text-red-600'}`}>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 truncate">{metric.title}</p>
+                  <p className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">{metric.value}</p>
+                  <p className={`text-xs sm:text-sm ${metric.changeType === 'positive' ? 'text-green-600' : 'text-red-600'}`}>
                     {metric.change} from last month
                   </p>
                 </div>
-                <div className={`p-3 rounded-lg ${metric.iconColor}`}>
-                  <metric.icon className="w-6 h-6 text-white" />
+                <div className={`p-2 sm:p-3 rounded-lg ${metric.iconColor} flex-shrink-0 ml-2`}>
+                  <metric.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
               </div>
             </button>
@@ -145,112 +145,112 @@ export default function AdminDashboard() {
       </div>
 
       {/* Quick Actions - Full Width */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 mb-8">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h3>
-        <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-10 gap-3">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 sm:p-6 mb-6 sm:mb-8">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-10 gap-2 sm:gap-3">
           <button 
             onClick={() => router.push('/admin/products')}
-            className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-2"
+            className="p-2 sm:p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-1 sm:space-y-2"
           >
-            <Package className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            <Package className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 dark:text-blue-400" />
             <span className="text-xs font-medium text-blue-900 dark:text-blue-100 text-center">Products</span>
           </button>
           <button 
             onClick={() => router.push('/admin/orders')}
-            className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-2"
+            className="p-2 sm:p-3 bg-green-50 dark:bg-green-900/20 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-1 sm:space-y-2"
           >
-            <ShoppingCart className="w-5 h-5 text-green-600 dark:text-green-400" />
+            <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 dark:text-green-400" />
             <span className="text-xs font-medium text-green-900 dark:text-green-100 text-center">Orders</span>
           </button>
           <button 
             onClick={() => router.push('/admin/customers')}
-            className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-2"
+            className="p-2 sm:p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-1 sm:space-y-2"
           >
-            <Users className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+            <Users className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600 dark:text-purple-400" />
             <span className="text-xs font-medium text-purple-900 dark:text-purple-100 text-center">Customers</span>
           </button>
           <button 
             onClick={() => router.push('/admin/analytics')}
-            className="p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-2"
+            className="p-2 sm:p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-1 sm:space-y-2"
           >
-            <TrendingUp className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+            <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600 dark:text-orange-400" />
             <span className="text-xs font-medium text-orange-900 dark:text-orange-100 text-center">Analytics</span>
           </button>
           <button 
             onClick={() => router.push('/admin/inventory')}
-            className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-2"
+            className="p-2 sm:p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-1 sm:space-y-2"
           >
-            <Package className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+            <Package className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600 dark:text-indigo-400" />
             <span className="text-xs font-medium text-indigo-900 dark:text-indigo-100 text-center">Inventory</span>
           </button>
           <button 
             onClick={() => router.push('/admin/discount-codes')}
-            className="p-3 bg-pink-50 dark:bg-pink-900/20 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-2"
+            className="p-2 sm:p-3 bg-pink-50 dark:bg-pink-900/20 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-1 sm:space-y-2"
           >
-            <Tag className="w-5 h-5 text-pink-600 dark:text-pink-400" />
+            <Tag className="w-4 h-4 sm:w-5 sm:h-5 text-pink-600 dark:text-pink-400" />
             <span className="text-xs font-medium text-pink-900 dark:text-pink-100 text-center">Discounts</span>
           </button>
           <button 
             onClick={() => router.push('/admin/shipping')}
-            className="p-3 bg-teal-50 dark:bg-teal-900/20 rounded-lg hover:bg-teal-100 dark:hover:bg-teal-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-2"
+            className="p-2 sm:p-3 bg-teal-50 dark:bg-teal-900/20 rounded-lg hover:bg-teal-100 dark:hover:bg-teal-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-1 sm:space-y-2"
           >
-            <Truck className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+            <Truck className="w-4 h-4 sm:w-5 sm:h-5 text-teal-600 dark:text-teal-400" />
             <span className="text-xs font-medium text-teal-900 dark:text-teal-100 text-center">Shipping</span>
           </button>
           <button 
             onClick={() => router.push('/admin/payments')}
-            className="p-3 bg-cyan-50 dark:bg-cyan-900/20 rounded-lg hover:bg-cyan-100 dark:hover:bg-cyan-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-2"
+            className="p-2 sm:p-3 bg-cyan-50 dark:bg-cyan-900/20 rounded-lg hover:bg-cyan-100 dark:hover:bg-cyan-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-1 sm:space-y-2"
           >
-            <CreditCard className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+            <CreditCard className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-600 dark:text-cyan-400" />
             <span className="text-xs font-medium text-cyan-900 dark:text-cyan-100 text-center">Payments</span>
           </button>
           <button 
             onClick={() => router.push('/admin/marketing')}
-            className="p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg hover:bg-yellow-100 dark:hover:bg-yellow-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-2"
+            className="p-2 sm:p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg hover:bg-yellow-100 dark:hover:bg-yellow-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-1 sm:space-y-2"
           >
-            <Megaphone className="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
+            <Megaphone className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-600 dark:text-yellow-400" />
             <span className="text-xs font-medium text-yellow-900 dark:text-yellow-100 text-center">Marketing</span>
           </button>
           <button 
             onClick={() => router.push('/admin/customer-service')}
-            className="p-3 bg-red-50 dark:bg-red-900/20 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-2"
+            className="p-2 sm:p-3 bg-red-50 dark:bg-red-900/20 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30 transition-all duration-200 hover:scale-105 hover:shadow-md flex flex-col items-center space-y-1 sm:space-y-2"
           >
-            <MessageSquare className="w-5 h-5 text-red-600 dark:text-red-400" />
+            <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 text-red-600 dark:text-red-400" />
             <span className="text-xs font-medium text-red-900 dark:text-red-100 text-center">Support</span>
           </button>
         </div>
       </div>
 
       {/* Analytics and Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
         {/* Sales Chart */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Sales Overview</h3>
-          <div className="h-64 flex items-end justify-between space-x-2">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 sm:p-6">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4">Sales Overview</h3>
+          <div className="h-48 sm:h-64 flex items-end justify-between space-x-1 sm:space-x-2">
             {[65, 45, 80, 55, 70, 90, 75, 60, 85, 95, 70, 88].map((height, index) => (
               <div key={index} className="flex flex-col items-center flex-1">
                 <div 
                   className="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg transition-all duration-300 hover:from-blue-600 hover:to-blue-500"
                   style={{ height: `${height}%` }}
                 ></div>
-                <span className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                <span className="text-xs text-gray-500 dark:text-gray-400 mt-1 sm:mt-2">
                   {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][index]}
                 </span>
               </div>
             ))}
           </div>
-          <div className="mt-4 flex justify-between text-sm">
+          <div className="mt-4 flex flex-col sm:flex-row sm:justify-between text-xs sm:text-sm gap-1 sm:gap-0">
             <span className="text-gray-600 dark:text-gray-400">Total Sales: $2.4M</span>
             <span className="text-green-600 dark:text-green-400">+12.5% from last year</span>
           </div>
         </div>
 
         {/* Revenue Chart and Recent Activity */}
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {/* Revenue Chart */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Revenue Trends</h3>
-            <div className="h-64 relative">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 sm:p-6">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4">Revenue Trends</h3>
+            <div className="h-48 sm:h-64 relative">
               {/* Line Chart */}
               <svg className="w-full h-full" viewBox="0 0 400 200">
                 <defs>
@@ -294,15 +294,15 @@ export default function AdminDashboard() {
                 ))}
               </svg>
             </div>
-            <div className="mt-4 flex justify-between text-sm">
+            <div className="mt-4 flex flex-col sm:flex-row sm:justify-between text-xs sm:text-sm gap-1 sm:gap-0">
               <span className="text-gray-600 dark:text-gray-400">Monthly Revenue: $180K</span>
               <span className="text-green-600 dark:text-green-400">+8.2% growth</span>
             </div>
           </div>
 
           {/* Recent Activity */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Recent Activity</h3>
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 sm:p-6">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4">Recent Activity</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
@@ -326,10 +326,10 @@ export default function AdminDashboard() {
       </div>
 
       {/* Additional Analytics */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
         {/* Top Products */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Top Products</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 sm:p-6">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4">Top Products</h3>
           <div className="space-y-4">
             {[
               { name: 'Sony Headphones', sales: 245, revenue: '$12,250' },
@@ -357,8 +357,8 @@ export default function AdminDashboard() {
         </div>
 
         {/* Customer Demographics */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Customer Demographics</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 sm:p-6">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4">Customer Demographics</h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-600 dark:text-gray-400">Age 18-25</span>
@@ -400,8 +400,8 @@ export default function AdminDashboard() {
         </div>
 
         {/* Order Status */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Order Status</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 sm:p-6">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4">Order Status</h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
@@ -443,36 +443,36 @@ export default function AdminDashboard() {
       </div>
 
       {/* System Management */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 mb-8">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">System Management</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 sm:p-6 mb-6 sm:mb-8">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4">System Management</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           <button 
             onClick={() => router.push('/admin/management-center')}
-            className="p-4 bg-slate-50 dark:bg-slate-900/20 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900/30 transition-colors"
+            className="p-3 sm:p-4 bg-slate-50 dark:bg-slate-900/20 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900/30 transition-colors"
           >
-            <Users className="w-6 h-6 text-slate-600 dark:text-slate-400 mx-auto mb-2" />
-            <span className="text-sm font-medium text-slate-900 dark:text-slate-100">User Management</span>
+            <Users className="w-5 h-5 sm:w-6 sm:h-6 text-slate-600 dark:text-slate-400 mx-auto mb-2" />
+            <span className="text-xs sm:text-sm font-medium text-slate-900 dark:text-slate-100">User Management</span>
           </button>
           <button 
             onClick={() => router.push('/admin/settings')}
-            className="p-4 bg-gray-50 dark:bg-gray-900/20 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900/30 transition-colors"
+            className="p-3 sm:p-4 bg-gray-50 dark:bg-gray-900/20 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900/30 transition-colors"
           >
-            <AlertCircle className="w-6 h-6 text-gray-600 dark:text-gray-400 mx-auto mb-2" />
-            <span className="text-sm font-medium text-gray-900 dark:text-gray-100">System Settings</span>
+            <AlertCircle className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 dark:text-gray-400 mx-auto mb-2" />
+            <span className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-100">System Settings</span>
           </button>
           <button 
             onClick={() => router.push('/admin/analytics')}
-            className="p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors"
+            className="p-3 sm:p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors"
           >
-            <TrendingUp className="w-6 h-6 text-emerald-600 dark:text-emerald-400 mx-auto mb-2" />
-            <span className="text-sm font-medium text-emerald-900 dark:text-emerald-100">Reports</span>
+            <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 dark:text-emerald-400 mx-auto mb-2" />
+            <span className="text-xs sm:text-sm font-medium text-emerald-900 dark:text-emerald-100">Reports</span>
           </button>
           <button 
             onClick={() => router.push('/admin/customer-service')}
-            className="p-4 bg-rose-50 dark:bg-rose-900/20 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-900/30 transition-colors"
+            className="p-3 sm:p-4 bg-rose-50 dark:bg-rose-900/20 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-900/30 transition-colors"
           >
-            <MessageSquare className="w-6 h-6 text-rose-600 dark:text-rose-400 mx-auto mb-2" />
-            <span className="text-sm font-medium text-rose-900 dark:text-rose-100">Support Center</span>
+            <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6 text-rose-600 dark:text-rose-400 mx-auto mb-2" />
+            <span className="text-xs sm:text-sm font-medium text-rose-900 dark:text-rose-100">Support Center</span>
           </button>
         </div>
       </div>

@@ -55,7 +55,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-900/20 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/30 transition-all duration-300 hover-lift group">
       <div className="relative">
         <Link href={`/products/${product.id}`}>
-          <div className="relative h-48 w-full overflow-hidden">
+          <div className="relative h-40 sm:h-48 w-full overflow-hidden">
             <Image
               src={product.image}
               alt={product.name}
@@ -87,14 +87,14 @@ export default function ProductCard({ product }: ProductCardProps) {
         </button>
       </div>
       
-      <div className="p-4">
+      <div className="p-3 sm:p-4">
         <Link href={`/products/${product.id}`}>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors line-clamp-2">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors line-clamp-2">
             {product.name}
           </h3>
         </Link>
         
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{product.category}</p>
+        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-2">{product.category}</p>
         
         {/* Rating */}
         {product.rating && (
@@ -116,12 +116,12 @@ export default function ProductCard({ product }: ProductCardProps) {
         
         <div className="flex justify-between items-center">
           <div className="flex flex-col">
-            <div className="flex items-center space-x-2">
-              <span className="text-xl font-bold text-gray-900 dark:text-gray-100">
+            <div className="flex items-center space-x-1 sm:space-x-2">
+              <span className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100">
                 ${product.price.toFixed(2)}
               </span>
               {product.originalPrice && (
-                <span className="text-sm text-gray-500 dark:text-gray-400 line-through">
+                <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 line-through">
                   ${product.originalPrice.toFixed(2)}
                 </span>
               )}
@@ -131,12 +131,12 @@ export default function ProductCard({ product }: ProductCardProps) {
           <button
             onClick={handleAddToCart}
             disabled={isAddingToCart || product.inStock === false}
-            className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:cursor-not-allowed flex items-center justify-center min-w-[40px]"
+            className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:cursor-not-allowed flex items-center justify-center min-w-[36px] sm:min-w-[40px]"
           >
             {isAddingToCart ? (
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              <div className="w-3 h-3 sm:w-4 sm:h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
             ) : (
-              <ShoppingCart size={16} />
+              <ShoppingCart size={14} className="sm:w-4 sm:h-4" />
             )}
           </button>
         </div>

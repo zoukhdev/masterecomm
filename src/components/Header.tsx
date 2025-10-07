@@ -10,6 +10,7 @@ import LanguageDropdown from './LanguageDropdown';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
 import { getLoginUrl, getCurrentUrl } from '../lib/auth-utils';
+import { usePathname } from 'next/navigation';
 
 export default function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -18,8 +19,14 @@ export default function Header() {
   const [loginUrl, setLoginUrl] = useState('/login');
   const [signupUrl, setSignupUrl] = useState('/signup');
   
+  const pathname = usePathname();
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+  // Hide header on admin pages
+  if (pathname.startsWith('/admin')) {
+    return null;
+  }
 
   // Set URLs after hydration to prevent hydration mismatch
   useEffect(() => {

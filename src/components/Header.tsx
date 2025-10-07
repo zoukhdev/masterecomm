@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { ShoppingCart, User, Search, Heart, Menu, X, LogOut } from 'lucide-react';
 import { RootState } from '../lib/store';
@@ -15,9 +15,18 @@ export default function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [loginUrl, setLoginUrl] = useState('/login');
+  const [signupUrl, setSignupUrl] = useState('/signup');
   
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+  // Set URLs after hydration to prevent hydration mismatch
+  useEffect(() => {
+    const currentUrl = getCurrentUrl();
+    setLoginUrl(getLoginUrl(currentUrl));
+    setSignupUrl(`/signup?returnTo=${encodeURIComponent(currentUrl)}`);
+  }, []);
   const { t } = useLanguage();
   const { user, isAuthenticated, logout } = useAuth();
 
@@ -133,13 +142,13 @@ export default function Header() {
                 <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                   <div className="py-2">
                     <Link
-                      href={getLoginUrl(getCurrentUrl())}
+                      href={loginUrl}
                       className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                     >
                       Sign In
                     </Link>
                     <Link
-                      href={`/signup?returnTo=${encodeURIComponent(getCurrentUrl())}`}
+                      href={signupUrl}
                       className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                     >
                       Create Account
@@ -286,14 +295,14 @@ export default function Header() {
               ) : (
                 <>
                   <Link 
-                    href={getLoginUrl(getCurrentUrl())} 
+                    href={loginUrl} 
                     className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Sign In
                   </Link>
                   <Link 
-                    href={`/signup?returnTo=${encodeURIComponent(getCurrentUrl())}`} 
+                    href={signupUrl} 
                     className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >

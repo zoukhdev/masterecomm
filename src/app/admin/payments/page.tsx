@@ -15,7 +15,8 @@ import {
   Eye,
   BarChart3,
   Shield,
-  Zap
+  Zap,
+  Trash2
 } from 'lucide-react';
 
 interface PaymentMethod {

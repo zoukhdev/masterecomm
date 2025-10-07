@@ -225,26 +225,26 @@ export default function AdminProducts() {
 
       {/* Products Table */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[480px] sm:min-w-[600px]">
+        <div className="overflow-x-auto -mx-2 sm:mx-0">
+          <table className="w-full min-w-[320px] sm:min-w-[480px] lg:min-w-[600px]">
             <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
-                <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-[10px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                   Product
                 </th>
-                <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-[10px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider hidden sm:table-cell">
+                <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider hidden sm:table-cell">
                   Category
                 </th>
-                <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-[10px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                   Price
                 </th>
-                <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-[10px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider hidden md:table-cell">
+                <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider hidden md:table-cell">
                   Stock
                 </th>
-                <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-[10px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider hidden lg:table-cell">
+                <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider hidden lg:table-cell">
                   Rating
                 </th>
-                <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-[10px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
@@ -252,9 +252,9 @@ export default function AdminProducts() {
             <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
               {filteredProducts.map((product) => (
                 <tr key={product.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150">
-                  <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap">
+                  <td className="px-1 sm:px-6 py-1 sm:py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      <div className="w-8 h-8 sm:w-12 sm:h-12 bg-gray-200 dark:bg-gray-600 rounded-lg flex-shrink-0 overflow-hidden">
+                      <div className="w-6 h-6 sm:w-12 sm:h-12 bg-gray-200 dark:bg-gray-600 rounded-lg flex-shrink-0 overflow-hidden">
                         {product.image ? (
                           <img
                             src={product.image}
@@ -263,30 +263,30 @@ export default function AdminProducts() {
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <Package className="w-3 h-3 sm:w-6 sm:h-6 text-gray-400" />
+                            <Package className="w-2 h-2 sm:w-6 sm:h-6 text-gray-400" />
                           </div>
                         )}
                       </div>
-                      <div className="ml-2 sm:ml-4">
-                        <div className="text-[10px] sm:text-sm font-medium text-gray-900 dark:text-white truncate max-w-[100px] sm:max-w-none">{product.name}</div>
-                        <div className="text-[9px] sm:text-sm text-gray-500 dark:text-gray-400 truncate max-w-[100px] sm:max-w-none">{product.brand}</div>
+                      <div className="ml-1 sm:ml-4">
+                        <div className="text-[8px] sm:text-sm font-medium text-gray-900 dark:text-white truncate max-w-[80px] sm:max-w-none">{product.name}</div>
+                        <div className="text-[7px] sm:text-sm text-gray-500 dark:text-gray-400 truncate max-w-[80px] sm:max-w-none">{product.brand}</div>
                         <div className="sm:hidden">
-                          <span className="inline-flex px-1 py-0.5 text-[8px] font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300">
+                          <span className="inline-flex px-0.5 py-0.5 text-[6px] font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300">
                             {product.category}
                           </span>
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap hidden sm:table-cell">
+                  <td className="px-1 sm:px-6 py-1 sm:py-4 whitespace-nowrap hidden sm:table-cell">
                     <span className="inline-flex px-1 py-0.5 text-[8px] sm:text-xs font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300">
                       {product.category}
                     </span>
                   </td>
-                  <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap">
-                    <div className="text-[10px] sm:text-sm font-medium text-gray-900 dark:text-white">${product.price}</div>
+                  <td className="px-1 sm:px-6 py-1 sm:py-4 whitespace-nowrap">
+                    <div className="text-[8px] sm:text-sm font-medium text-gray-900 dark:text-white">${product.price}</div>
                     {product.originalPrice && (
-                      <div className="text-[9px] sm:text-sm text-gray-500 dark:text-gray-400 line-through">${product.originalPrice}</div>
+                      <div className="text-[7px] sm:text-sm text-gray-500 dark:text-gray-400 line-through">${product.originalPrice}</div>
                     )}
                     <div className="md:hidden mt-1">
                       <span className={`inline-flex px-1 py-0.5 text-[8px] font-semibold rounded-full ${
@@ -298,7 +298,7 @@ export default function AdminProducts() {
                       </span>
                     </div>
                   </td>
-                  <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap hidden md:table-cell">
+                  <td className="px-1 sm:px-6 py-1 sm:py-4 whitespace-nowrap hidden md:table-cell">
                     <span className={`inline-flex px-1 py-0.5 text-[8px] sm:text-xs font-semibold rounded-full ${
                       product.inStock 
                         ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300'
@@ -307,23 +307,23 @@ export default function AdminProducts() {
                       {product.inStock ? 'In Stock' : 'Out of Stock'}
                     </span>
                   </td>
-                  <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap hidden lg:table-cell">
+                  <td className="px-1 sm:px-6 py-1 sm:py-4 whitespace-nowrap hidden lg:table-cell">
                     <div className="flex items-center">
                       <Star className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 mr-1" />
                       <span className="text-[10px] sm:text-sm text-gray-900 dark:text-white">{product.rating?.toFixed(1) || 'N/A'}</span>
                       <span className="text-[9px] sm:text-sm text-gray-500 dark:text-gray-400 ml-1">({product.reviews || 0})</span>
                     </div>
                   </td>
-                  <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-sm font-medium">
-                    <div className="flex items-center space-x-1">
+                  <td className="px-1 sm:px-6 py-1 sm:py-4 whitespace-nowrap text-sm font-medium">
+                    <div className="flex items-center space-x-0.5">
                       <button className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 p-0.5" title="View">
-                        <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
+                        <Eye className="w-2.5 h-2.5 sm:w-4 sm:h-4" />
                       </button>
                       <button className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 p-0.5" title="Edit">
-                        <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
+                        <Edit className="w-2.5 h-2.5 sm:w-4 sm:h-4" />
                       </button>
                       <button className="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 p-0.5" title="Delete">
-                        <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
+                        <Trash2 className="w-2.5 h-2.5 sm:w-4 sm:h-4" />
                       </button>
                     </div>
                   </td>

@@ -512,25 +512,25 @@ export default function AdminManagementCenter() {
         <div className="space-y-6">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full min-w-[280px] sm:min-w-[400px] lg:min-w-[600px]">
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       User
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Role
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Department
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Last Login
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
@@ -598,25 +598,25 @@ export default function AdminManagementCenter() {
         <div className="space-y-6">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full min-w-[280px] sm:min-w-[400px] lg:min-w-[600px]">
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       User
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Action
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Resource
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       IP Address
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Timestamp
                     </th>
                   </tr>
@@ -661,25 +661,25 @@ export default function AdminManagementCenter() {
         <div className="space-y-6">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full min-w-[280px] sm:min-w-[400px] lg:min-w-[600px]">
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Alert
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Type
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Severity
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Timestamp
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
@@ -796,7 +796,7 @@ export default function AdminManagementCenter() {
             </div>
             
             <div className="mt-6">
-              <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+              <button className="px-1 sm:px-6 py-1 sm:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                 Save Settings
               </button>
             </div>

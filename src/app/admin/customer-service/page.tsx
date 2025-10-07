@@ -433,13 +433,13 @@ export default function AdminCustomerService() {
                         <MessageSquare className="w-3 h-3 text-gray-400 dark:text-gray-500 mr-2 flex-shrink-0" />
                         <span className="text-sm font-medium text-gray-900 dark:text-white truncate">{ticket.subject}</span>
                       </div>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{ticket.customerName}</p>
+                       <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{ticket.customer.name}</p>
                       <div className="flex items-center justify-between text-xs">
                         <span className="text-gray-600 dark:text-gray-300">#{ticket.id}</span>
                         <span className={`px-2 py-0.5 rounded-full text-xs ${
                           ticket.status === 'open'
                             ? 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300'
-                            : ticket.status === 'in-progress'
+                            : ticket.status === 'in_progress'
                             ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-300'
                             : 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300'
                         }`}>
@@ -594,13 +594,13 @@ export default function AdminCustomerService() {
                         <MessageSquare className="w-3 h-3 text-gray-400 dark:text-gray-500 mr-2 flex-shrink-0" />
                         <span className="text-sm font-medium text-gray-900 dark:text-white truncate">{ticket.subject}</span>
                       </div>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{ticket.customerName}</p>
+                       <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{ticket.customer.name}</p>
                       <div className="flex items-center justify-between text-xs">
                         <span className="text-gray-600 dark:text-gray-300">#{ticket.id}</span>
                         <span className={`px-2 py-0.5 rounded-full text-xs ${
                           ticket.status === 'open'
                             ? 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300'
-                            : ticket.status === 'in-progress'
+                            : ticket.status === 'in_progress'
                             ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-300'
                             : 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300'
                         }`}>

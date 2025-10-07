@@ -272,7 +272,6 @@ export default function AdminMarketing() {
                         <Megaphone className="w-3 h-3 text-gray-400 dark:text-gray-500 mr-2 flex-shrink-0" />
                         <span className="text-sm font-medium text-gray-900 dark:text-white truncate">{campaign.name}</span>
                       </div>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{campaign.description}</p>
                       <div className="flex items-center justify-between text-xs">
                         <span className="text-gray-600 dark:text-gray-300">{campaign.type}</span>
                         <span className={`px-2 py-0.5 rounded-full text-xs ${
@@ -413,7 +412,6 @@ export default function AdminMarketing() {
                         <Megaphone className="w-3 h-3 text-gray-400 dark:text-gray-500 mr-2 flex-shrink-0" />
                         <span className="text-sm font-medium text-gray-900 dark:text-white truncate">{campaign.name}</span>
                       </div>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{campaign.description}</p>
                       <div className="flex items-center justify-between text-xs">
                         <span className="text-gray-600 dark:text-gray-300">{campaign.type}</span>
                         <span className={`px-2 py-0.5 rounded-full text-xs ${

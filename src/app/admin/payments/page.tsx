@@ -307,11 +307,11 @@ export default function AdminPayments() {
                       <div className="flex items-center justify-between text-xs">
                         <span className="text-gray-600 dark:text-gray-300">{method.processingFee}%</span>
                         <span className={`px-2 py-0.5 rounded-full text-xs ${
-                          method.isActive 
+                          method.status === 'active'
                             ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300'
                             : 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300'
                         }`}>
-                          {method.isActive ? 'Active' : 'Inactive'}
+                          {method.status === 'active' ? 'Active' : 'Inactive'}
                         </span>
                       </div>
                     </div>
@@ -438,11 +438,11 @@ export default function AdminPayments() {
                       <div className="flex items-center justify-between text-xs">
                         <span className="text-gray-600 dark:text-gray-300">{method.processingFee}%</span>
                         <span className={`px-2 py-0.5 rounded-full text-xs ${
-                          method.isActive 
+                          method.status === 'active'
                             ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300'
                             : 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300'
                         }`}>
-                          {method.isActive ? 'Active' : 'Inactive'}
+                          {method.status === 'active' ? 'Active' : 'Inactive'}
                         </span>
                       </div>
                     </div>

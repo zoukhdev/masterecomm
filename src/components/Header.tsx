@@ -22,11 +22,8 @@ export default function Header() {
   const pathname = usePathname();
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-
-  // Hide header on admin pages
-  if (pathname.startsWith('/admin')) {
-    return null;
-  }
+  const { t } = useLanguage();
+  const { user, isAuthenticated, logout } = useAuth();
 
   // Set URLs after hydration to prevent hydration mismatch
   useEffect(() => {
@@ -34,8 +31,11 @@ export default function Header() {
     setLoginUrl(getLoginUrl(currentUrl));
     setSignupUrl(`/signup?returnTo=${encodeURIComponent(currentUrl)}`);
   }, []);
-  const { t } = useLanguage();
-  const { user, isAuthenticated, logout } = useAuth();
+
+  // Hide header on admin pages
+  if (pathname.startsWith('/admin')) {
+    return null;
+  }
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();

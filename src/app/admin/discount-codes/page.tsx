@@ -180,7 +180,7 @@ export default function AdminDiscountCodes() {
                       {code.type === 'percentage' ? `${code.value}%` : `$${code.value}`}
                     </span>
                     <span className="text-gray-500 dark:text-gray-400">
-                      {code.usageCount}/{code.usageLimit || '∞'}
+                       {code.usedCount}/{code.maxUses || '∞'}
                     </span>
                   </div>
                 </div>

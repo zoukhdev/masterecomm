@@ -239,25 +239,25 @@ export default function AdminShipping() {
           {/* Methods Table */}
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[280px] sm:min-w-[400px] lg:min-w-[600px]">
+              <table className="w-full min-w-[240px] sm:min-w-[320px] lg:min-w-[500px]">
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
-                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-0.5 sm:px-6 py-0.5 sm:py-3 text-left text-[7px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Method
                     </th>
-                    <th className="hidden sm:table-cell px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="hidden sm:table-cell px-0.5 sm:px-6 py-0.5 sm:py-3 text-left text-[7px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Type
                     </th>
-                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-0.5 sm:px-6 py-0.5 sm:py-3 text-left text-[7px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Cost
                     </th>
-                    <th className="hidden md:table-cell px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="hidden md:table-cell px-0.5 sm:px-6 py-0.5 sm:py-3 text-left text-[7px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Delivery Time
                     </th>
-                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-0.5 sm:px-6 py-0.5 sm:py-3 text-left text-[7px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="px-1 sm:px-6 py-1 sm:py-3 text-left text-[8px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-0.5 sm:px-6 py-0.5 sm:py-3 text-left text-[7px] sm:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>

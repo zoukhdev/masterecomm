@@ -43,7 +43,7 @@ export default function AdminLayout({
               <AdminSidebar />
               <div className="flex-1 flex flex-col lg:ml-0">
                 <AdminHeader />
-                <main className="flex-1 overflow-auto p-2 sm:p-4 lg:p-6 pt-16 lg:pt-4">
+                <main className="flex-1 overflow-auto p-1 sm:p-4 lg:p-6 pt-16 lg:pt-4">
                   <div className="max-w-full overflow-hidden">
                     {children}
                   </div>

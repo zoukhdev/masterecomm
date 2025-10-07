@@ -9,7 +9,7 @@ import LanguageDropdown from '../../../components/LanguageDropdown';
 export default function AdminHeader() {
   return (
     <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 fixed top-0 left-0 right-0 z-30 lg:static">
-      <div className="px-4 sm:px-6 py-4 pl-16 lg:pl-4">
+      <div className="px-2 sm:px-6 py-4 pl-12 lg:pl-4">
         <div className="flex items-center justify-between">
           {/* Search - Hidden on mobile, visible on md+ */}
           <div className="hidden md:flex flex-1 max-w-md">

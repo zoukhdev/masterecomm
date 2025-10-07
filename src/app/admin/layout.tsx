@@ -20,6 +20,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Admin Dashboard - E-Shop",
   description: "E-Shop Admin Dashboard",
+  viewport: "width=device-width, initial-scale=1",
 };
 
 export default function AdminLayout({
@@ -38,7 +39,7 @@ export default function AdminLayout({
               <AdminSidebar />
               <div className="flex-1 flex flex-col lg:ml-0">
                 <AdminHeader />
-                <main className="flex-1 overflow-auto p-4 lg:p-6">
+                <main className="flex-1 overflow-auto p-4 lg:p-6 pt-16 lg:pt-4">
                   {children}
                 </main>
               </div>

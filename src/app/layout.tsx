@@ -22,6 +22,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "E-Shop - Your Online Marketplace",
   description: "Discover amazing products at great prices",
+  viewport: "width=device-width, initial-scale=1",
 };
 
 export default function RootLayout({

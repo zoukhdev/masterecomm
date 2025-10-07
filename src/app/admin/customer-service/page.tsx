@@ -289,17 +289,17 @@ export default function AdminCustomerService() {
   ];
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       {/* Header */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between">
+      <div className="mb-4 sm:mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Customer Service</h1>
-            <p className="text-gray-600 dark:text-gray-400">Manage customer support and live chat</p>
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Customer Service</h1>
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Manage customer support and live chat</p>
           </div>
           <button 
             onClick={() => setShowNewTicketModal(true)}
-            className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="flex items-center justify-center space-x-2 px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base"
           >
             <Plus className="w-4 h-4" />
             <span>New Ticket</span>
@@ -308,66 +308,67 @@ export default function AdminCustomerService() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+        <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Open Tickets</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{openTickets}</p>
+              <p className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400">Open Tickets</p>
+              <p className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">{openTickets}</p>
             </div>
-            <AlertCircle className="w-8 h-8 text-red-500" />
+            <AlertCircle className="w-6 h-6 sm:w-8 sm:h-8 text-red-500" />
           </div>
         </div>
         
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
+        <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">In Progress</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{inProgressTickets}</p>
+              <p className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400">In Progress</p>
+              <p className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">{inProgressTickets}</p>
             </div>
-            <Clock className="w-8 h-8 text-yellow-500" />
+            <Clock className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-500" />
           </div>
         </div>
         
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
+        <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Resolved</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{resolvedTickets}</p>
+              <p className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400">Resolved</p>
+              <p className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">{resolvedTickets}</p>
             </div>
-            <CheckCircle className="w-8 h-8 text-green-500" />
+            <CheckCircle className="w-6 h-6 sm:w-8 sm:h-8 text-green-500" />
           </div>
         </div>
         
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
+        <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Active Chats</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{activeChats}</p>
+              <p className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400">Active Chats</p>
+              <p className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">{activeChats}</p>
             </div>
-            <Phone className="w-8 h-8 text-blue-500" />
+            <Phone className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500" />
           </div>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="mb-6">
+      <div className="mb-4 sm:mb-6">
         <div className="border-b border-gray-200 dark:border-gray-700">
-          <nav className="-mb-px flex space-x-8">
+          <nav className="-mb-px flex flex-wrap space-x-2 sm:space-x-8">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center py-2 px-1 border-b-2 font-medium text-sm ${
+                  className={`flex items-center py-2 px-1 sm:px-1 border-b-2 font-medium text-xs sm:text-sm ${
                     activeTab === tab.id
                       ? 'border-blue-500 text-blue-600 dark:text-blue-400'
                       : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300'
                   }`}
                 >
-                  <Icon className="w-4 h-4 mr-2" />
-                  {tab.label}
+                  <Icon className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">{tab.label}</span>
+                  <span className="sm:hidden">{tab.label.split(' ')[0]}</span>
                 </button>
               );
             })}

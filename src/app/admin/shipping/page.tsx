@@ -152,17 +152,17 @@ export default function AdminShipping() {
   ];
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       {/* Header */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between">
+      <div className="mb-4 sm:mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Shipping Management</h1>
-            <p className="text-gray-600 dark:text-gray-400">Configure shipping methods and zones</p>
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Shipping Management</h1>
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Configure shipping methods and zones</p>
           </div>
           <button 
             onClick={() => setShowCreateModal(true)}
-            className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="flex items-center justify-center space-x-2 px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base"
           >
             <Plus className="w-4 h-4" />
             <span>Add Method</span>
@@ -171,23 +171,24 @@ export default function AdminShipping() {
       </div>
 
       {/* Tabs */}
-      <div className="mb-6">
+      <div className="mb-4 sm:mb-6">
         <div className="border-b border-gray-200 dark:border-gray-700">
-          <nav className="-mb-px flex space-x-8">
+          <nav className="-mb-px flex flex-wrap space-x-2 sm:space-x-8">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center py-2 px-1 border-b-2 font-medium text-sm ${
+                  className={`flex items-center py-2 px-1 sm:px-1 border-b-2 font-medium text-xs sm:text-sm ${
                     activeTab === tab.id
                       ? 'border-blue-500 text-blue-600 dark:text-blue-400'
                       : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300'
                   }`}
                 >
-                  <Icon className="w-4 h-4 mr-2" />
-                  {tab.label}
+                  <Icon className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">{tab.label}</span>
+                  <span className="sm:hidden">{tab.label.split(' ')[0]}</span>
                 </button>
               );
             })}
@@ -199,38 +200,38 @@ export default function AdminShipping() {
       {activeTab === 'methods' && (
         <div className="space-y-6">
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Methods</p>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{shippingMethods.length}</p>
+                  <p className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400">Total Methods</p>
+                  <p className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">{shippingMethods.length}</p>
                 </div>
-                <Truck className="w-8 h-8 text-blue-500" />
+                <Truck className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500" />
               </div>
             </div>
             
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
+            <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Active Methods</p>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                  <p className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400">Active Methods</p>
+                  <p className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">
                     {shippingMethods.filter(m => m.isActive).length}
                   </p>
                 </div>
-                <Package className="w-8 h-8 text-green-500" />
+                <Package className="w-6 h-6 sm:w-8 sm:h-8 text-green-500" />
               </div>
             </div>
             
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200">
+            <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-200 sm:col-span-2 lg:col-span-1">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Avg. Cost</p>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                  <p className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400">Avg. Cost</p>
+                  <p className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">
                     ${(shippingMethods.reduce((sum, m) => sum + m.cost, 0) / shippingMethods.length).toFixed(2)}
                   </p>
                 </div>
-                <DollarSign className="w-8 h-8 text-purple-500" />
+                <DollarSign className="w-6 h-6 sm:w-8 sm:h-8 text-purple-500" />
               </div>
             </div>
           </div>
@@ -241,22 +242,22 @@ export default function AdminShipping() {
               <table className="w-full">
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Method
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="hidden sm:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Type
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Cost
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="hidden md:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Delivery Time
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
@@ -264,32 +265,35 @@ export default function AdminShipping() {
                 <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                   {shippingMethods.map((method) => (
                     <tr key={method.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150">
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          <Truck className="w-4 h-4 text-gray-400 dark:text-gray-500 mr-3" />
+                          <Truck className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 dark:text-gray-500 mr-2 sm:mr-3" />
                           <div>
-                            <div className="text-sm font-medium text-gray-900 dark:text-white">{method.name}</div>
-                            <div className="text-sm text-gray-500 dark:text-gray-400">{method.description}</div>
+                            <div className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white">{method.name}</div>
+                            <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{method.description}</div>
+                            <div className="sm:hidden text-xs text-gray-500 dark:text-gray-400">
+                              {method.type.charAt(0).toUpperCase() + method.type.slice(1)}
+                            </div>
                           </div>
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="hidden sm:table-cell px-3 sm:px-6 py-4 whitespace-nowrap">
                         <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getTypeColor(method.type)}`}>
                           {method.type.charAt(0).toUpperCase() + method.type.slice(1)}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-900 dark:text-white">
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                        <div className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white">
                           {method.cost === 0 ? 'Free' : `$${method.cost}`}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="hidden md:table-cell px-3 sm:px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          <Clock className="w-4 h-4 text-gray-400 mr-2" />
-                          <span className="text-sm text-gray-900 dark:text-white">{method.estimatedDays}</span>
+                          <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 mr-1 sm:mr-2" />
+                          <span className="text-xs sm:text-sm text-gray-900 dark:text-white">{method.estimatedDays}</span>
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                         <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                           method.isActive 
                             ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300'
@@ -298,13 +302,13 @@ export default function AdminShipping() {
                           {method.isActive ? 'Active' : 'Inactive'}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <div className="flex items-center space-x-2">
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <div className="flex items-center space-x-1 sm:space-x-2">
                           <button className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 p-1">
-                            <Edit className="w-4 h-4" />
+                            <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
                           </button>
                           <button className="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 p-1">
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
                           </button>
                         </div>
                       </td>

@@ -17,7 +17,7 @@ export default function AdminHeader() {
             <div className="w-12"></div>
             
             {/* Center - Logo */}
-            <Link href="/admin" className="text-lg font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent whitespace-nowrap">
+            <Link href="/admin" className="text-lg font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent whitespace-nowrap flex items-center justify-center h-10">
               E-Panel
             </Link>
             
